@@ -16,6 +16,7 @@
         mode: 755
         owner: root
         group: root
+        force: yes
     - name: Setup crontab
       cron:
         name: "admin action auditor"
