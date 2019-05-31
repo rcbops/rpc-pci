@@ -1,7 +1,7 @@
 ---
 - hosts: "overcloud-controller*"
   vars_files: 
-    - vars/admin-auditoryml
+    - vars/admin-auditor.yml
   vars:
     auditor_bin_location: "/usr/bin/admin-auditor.py"
     auditor_log_location: "/var/log/admin-auditor.log"
