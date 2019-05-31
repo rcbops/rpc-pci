@@ -7,6 +7,9 @@
     # create a proper rc file and put that in the proper
     # place on all nodes. 
     auditor_rc_location: "/root/auditorrc"
+    no_proxy_contents: ",10.239.0.10,192.168.24.27,10.239.0.10,192.168.24.27"
+    auth_url_contents: "https://10.239.0.10:13000//v3"
+    password_contents: "bighello"
   roles:
   tasks:
     - name: Install python command
@@ -28,3 +31,10 @@
         path: "{{ auditor_log_location }}"
         state: touch
         mode: 644
+    - name: Ensure auditorrc
+      template:
+        src: files/auditorrc.j2
+        dest: /root/auditorrc
+        mode: 640
+        owner: root
+        group: root
