@@ -1,0 +1,23 @@
+---
+- hosts: all
+  vars:
+    auditor_bin_location: "/usr/bin/admin-auditor.py"
+    auditor_log_location: "/var/log/admin-auditor.log"
+    # Make sure you manage your auditor admin user and 
+    # create a proper rc file
+    auditor_rc_location: "/root/auditorrc"
+  roles:
+  tasks:
+    - name: Install python command
+      copy:
+        src: files/admin-auditor.py
+        dest: {{ auditor_bin_location }}
+        mode: 755
+        owner: root
+        group: root
+    - name: Setup crontab
+      cron:
+        name: "admin action auditor"
+        minute: 0
+        hour: 7
+        job: "source {{ auditor_rc_location }} && find /var/log/containers -name "*log" | xargs {{ auditor_bin_location }} > {{ auditor_log_location }}"
