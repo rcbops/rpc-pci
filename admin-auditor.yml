@@ -12,7 +12,7 @@
     - name: Install python command
       copy:
         src: files/admin-auditor.py
-        dest: {{ auditor_bin_location }}
+        dest: "{{ auditor_bin_location }}"
         mode: 755
         owner: root
         group: root
@@ -24,6 +24,6 @@
         job: "source {{ auditor_rc_location }} && find /var/log/containers -name \"*log\" | xargs {{ auditor_bin_location }} > {{ auditor_log_location }}"
     - name: Setup logfile
       file:
-        path: {{ auditor_log_location }}
+        path: "{{ auditor_log_location }}"
         state: touch
         mode: 644
