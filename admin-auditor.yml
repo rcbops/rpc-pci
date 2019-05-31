@@ -21,7 +21,7 @@
         name: "admin action auditor"
         minute: 0
         hour: 7
-        job: "source {{ auditor_rc_location }} && find /var/log/containers -name "*log" | xargs {{ auditor_bin_location }} > {{ auditor_log_location }}"
+        job: "source {{ auditor_rc_location }} && find /var/log/containers -name \"*log\" | xargs {{ auditor_bin_location }} > {{ auditor_log_location }}"
     - name: Setup logfile
       file:
         path: {{ auditor_log_location }}
