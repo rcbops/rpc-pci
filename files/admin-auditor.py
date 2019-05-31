@@ -51,7 +51,7 @@ def process_line(line):
 
     # We don't care about problems in this context
     try:
-        if fields[3] in ['WARNING', 'ERROR']:
+        if fields[3] in ['WARNING', 'ERROR', 'CRITICAL']:
             return
     except IndexError as e:
         return
