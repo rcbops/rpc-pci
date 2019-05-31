@@ -1,5 +1,7 @@
 ---
 - hosts: "overcloud-controller*"
+  vars_files: 
+    - vars/admin-auditoryml
   vars:
     auditor_bin_location: "/usr/bin/admin-auditor.py"
     auditor_log_location: "/var/log/admin-auditor.log"
@@ -7,9 +9,9 @@
     # create a proper rc file and put that in the proper
     # place on all nodes. 
     auditor_rc_location: "/root/auditorrc"
-    no_proxy_contents: ",10.239.0.10,192.168.24.27,10.239.0.10,192.168.24.27"
-    auth_url_contents: "https://10.239.0.10:13000//v3"
-    password_contents: "bighello"
+    no_proxy_contents: ""
+    auth_url_contents: "https://127.0.0.1:13000//v3"
+    password_contents: ""
     username_contents: "admin-auditor"
   roles:
   tasks:
