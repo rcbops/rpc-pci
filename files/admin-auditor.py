@@ -63,6 +63,14 @@ def process_line(line):
     except IndexError as e:
         return
 
+    # Oslo alerts can't be called directly
+    # and are guaranteed irrelevant.
+    try:
+        if "oslo" in fields[4]:
+            return
+    except IndexError as e:
+        return
+
     # Exclude api hits that are read only
     try:
         # The keystone log has a different syntax
