@@ -1,10 +1,11 @@
 ---
-- hosts: all
+- hosts: "overcloud-controller*"
   vars:
     auditor_bin_location: "/usr/bin/admin-auditor.py"
     auditor_log_location: "/var/log/admin-auditor.log"
     # Make sure you manage your auditor admin user and 
-    # create a proper rc file
+    # create a proper rc file and put that in the proper
+    # place on all nodes. 
     auditor_rc_location: "/root/auditorrc"
   roles:
   tasks:
