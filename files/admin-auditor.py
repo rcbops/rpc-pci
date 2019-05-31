@@ -63,11 +63,12 @@ def process_line(line):
     except IndexError as e:
         return
 
-    # Oslo alerts can't be called directly
-    # and are guaranteed irrelevant.
+    # Oslo and raw wsgi alerts can't be called 
+    # directly and are guaranteed irrelevant.
     try:
-        if "oslo" in fields[4]:
-            return
+        for f in ["oslo", "eventlet.wsgi.server"]:
+            if f in fields[4]:
+                return
     except IndexError as e:
         return
 
