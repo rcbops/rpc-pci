@@ -18,7 +18,7 @@
       copy:
         src: files/admin-auditor.py
         dest: "{{ auditor_bin_location }}"
-        mode: 755
+        mode: '0755'
         owner: root
         group: root
         force: yes
@@ -32,11 +32,11 @@
       file:
         path: "{{ auditor_log_location }}"
         state: touch
-        mode: 644
+        mode: '0644'
     - name: Ensure auditorrc
       template:
         src: files/auditorrc.j2
         dest: /root/auditorrc
-        mode: 640
+        mode: '0640'
         owner: root
         group: root
