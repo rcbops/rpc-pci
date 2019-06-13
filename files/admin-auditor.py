@@ -97,17 +97,17 @@ def process_line(line):
     # regex on the entire line.
     try:
         regexes = [
-            '/.*/'    # matches everything 
+            '.*'    # matches everything 
         ] 
         for regex in regexes:
             result = re.match(regex, line)
             if result is not None:
-                line += 'LOG_ANOMALY'
+                fields.append('LOG_ANOMALY')
     except IndexError as e:
         return
 
     # print lines not caught by a filter
-    print(line)
+    print(' '.append(fields))
 
 
 if __name__ == "__main__":
