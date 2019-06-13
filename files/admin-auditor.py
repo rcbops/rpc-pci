@@ -2,6 +2,7 @@
 
 import sys
 import os
+import re
 from keystoneauth1.identity import v3
 from keystoneauth1 import session
 from keystoneclient.v3 import client
@@ -91,8 +92,22 @@ def process_line(line):
     except IndexError as e:
         return
 
+    # All lines so far should be logged, but only those matching
+    # lines matching these regexes need to be reviewed. We match
+    # regex on the entire line.
+    try:
+        regexes = [
+            '/.*/'    # matches everything 
+        ] 
+        for regex in regexes:
+            result = re.match(regex, line)
+            if result is not None:
+                line += 'LOG_ANOMALY'
+    except IndexError as e:
+        return
+
     # print lines not caught by a filter
-    print(' '.join(fields))
+    print(line)
 
 
 if __name__ == "__main__":
