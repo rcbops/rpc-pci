@@ -107,7 +107,7 @@ def process_line(line):
         return
 
     # print lines not caught by a filter
-    print(' '.append(fields))
+    print(' '.join(fields))
 
 
 if __name__ == "__main__":
