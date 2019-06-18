@@ -86,12 +86,16 @@ def process_line(line):
                          'BASELINE-CONTROL', 'MKACTIVITY', 'ORDERPATCH',
                          'ACL', 'PATCH', 'SEARCH']
 
-        # The keystone log has a different format
-        # than all other services because why not
-        for x in [11, 12]:
-            http_verb = remove_prefix(fields[x], '"')
-            if http_verb not in http_verbs:
-                return
+        # We have to search the entire line because of the field existing
+        # in multiple places. Keystone has a different format than all 
+        # other services because why not.
+        found_verb = False
+        for verb in http_verbs:
+            if http_verb in line:
+                found_verb = True
+                break
+        if not found_verb:
+            return
     except IndexError as e:
         return
 
