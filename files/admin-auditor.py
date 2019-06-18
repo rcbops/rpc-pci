@@ -74,13 +74,23 @@ def process_line(line):
     except IndexError as e:
         return
 
-    # Exclude api hits that are read only
+    # Exclude api hits that are read only. Most notably this means removing
+    # GET and OPTIONS. This has the added benefit of capturing only actual
+    # requests and not just mod_wsgi talking to itself.
     try:
-        # The keystone log has a different syntax
+        http_verbs = ['POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'TRACE',
+                         'CONNECT', 'PROPFIND', 'PROPPATCH', 'MKCOL', 'COPY',
+                         'MOVE', 'LOCK', 'UNLOCK', 'VERSION-CONTROL',
+                         'REPORT', 'CHECKOUT', 'CHECKIN' 'UNCHECKOUT',
+                         'MKWORKSPACE', 'UPDATE', 'LABEL', 'MERGE',
+                         'BASELINE-CONTROL', 'MKACTIVITY', 'ORDERPATCH',
+                         'ACL', 'PATCH', 'SEARCH']
+
+        # The keystone log has a different format
         # than all other services because why not
         for x in [11, 12]:
             http_verb = remove_prefix(fields[x], '"')
-            if http_verb in ['GET', 'OPTIONS']:
+            if http_verb not in http_verbs:
                 return
     except IndexError as e:
         return
@@ -112,7 +122,7 @@ def process_line(line):
     # a keyed field so splunk can pull it out. This is going to be
     # the "collected" date (i.e., the time the script was run)
     dt = datetime.now()
-    fields = ["SPLUNK_COLLECT_TIME:" + dt.strftime("%Y-%m-%d")] + fields
+    fields = ["SPLUNK_COLLECT_DATE:" + dt.strftime("%Y-%m-%d")] + fields
     print(' '.join(fields))
 
 
