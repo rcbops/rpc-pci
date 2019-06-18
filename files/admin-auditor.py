@@ -3,6 +3,7 @@
 import sys
 import os
 import re
+from datetime import datetime
 from keystoneauth1.identity import v3
 from keystoneauth1 import session
 from keystoneclient.v3 import client
@@ -107,6 +108,11 @@ def process_line(line):
         return
 
     # print lines not caught by a filter
+    # Since we can't guarantee structure of every line, we have to add
+    # a keyed field so splunk can pull it out. This is going to be
+    # the "collected" date (i.e., the time the script was run)
+    dt = datetime.now()
+    fields = ["SPLUNK_COLLECT_TIME:" + dt.strftime("%Y-%m-%d")] + fields
     print(' '.join(fields))
 
 
