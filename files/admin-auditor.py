@@ -125,8 +125,7 @@ def process_line(line):
     # Since we can't guarantee structure of every line, we have to add
     # a keyed field so splunk can pull it out. This is going to be
     # the "collected" date (i.e., the time the script was run)
-    dt = datetime.now()
-    fields = ["SPLUNK_COLLECT_DATE: " + datetime.now()] + fields
+    fields = ["SPLUNK_COLLECT_DATE: " + str(datetime.now())] + fields
     print(' '.join(fields))
 
 
