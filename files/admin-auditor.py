@@ -91,7 +91,7 @@ def process_line(line):
         # other services because why not.
         found_verb = False
         for verb in http_verbs:
-            if http_verb in line:
+            if verb in line:
                 found_verb = True
                 break
         if not found_verb:
